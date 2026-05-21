@@ -282,26 +282,38 @@ button:disabled {
 }
 
 .result-title {
-  margin-top: 42px;
-  margin-bottom: 24px;
+  margin-top: 52px;
+  margin-bottom: 42px;
+
   text-align: center;
+
   color: #8edcff;
-  font-size: 38px;
+
+  font-size: 52px;
+
+  letter-spacing: 6px;
+
+  text-shadow:
+    0 0 14px rgba(142, 220, 255, 0.7);
 }
 
 .score-point {
-  margin: 18px 0 28px;
+  margin: 28px 0 46px;
+
   text-align: center;
+
   font-weight: bold;
 }
 
 .score-point span {
-  font-size: 48px;
+  font-size: 72px;
 }
 
 .score-point small {
-  margin-left: 8px;
-  font-size: 24px;
+  margin-left: 14px;
+
+  font-size: 32px;
+
   color: #fff;
 }
 
@@ -321,16 +333,23 @@ button:disabled {
 
 .result-comment {
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  gap: 18px;
-  margin: 0 auto 42px;
-  font-size: 24px;
+
+  gap: 24px;
+
+  margin: 0 auto 38px;
+
+  font-size: 32px;
+
+  line-height: 1.8;
 }
 
 .comment-icon {
-  width: 72px;
-  height: 72px;
+  width: 92px;
+  height: 92px;
   border-radius: 50%;
   border: 3px solid #111827;
   object-fit: cover;
