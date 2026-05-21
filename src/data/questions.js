@@ -68,4 +68,24 @@ export const questions = [
 
     answerOrder: "any",
   },
+
+  {
+    id: 4,
+
+    title: "第4問",
+
+    layout: "single-input",
+
+    story:
+      "",
+
+    question:
+      "ハンナ「ピッタリ正方形が2つできましたわね。サイコロがいくつでも作れるんじゃなくて？\nエマ「ちょっと待ってハンナちゃん。絶対に作れないサイコロの個数があるよ。それは…",
+
+    answer: 3,
+
+    answerLabel: "4で割ったあまりが",
+
+    answerUnit: "のとき",
+  },
 ];
