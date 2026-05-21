@@ -6,27 +6,42 @@ import {
 
 import "./App.css";
 import { questions } from "./data/questions";
+
 import Header from "./components/Header";
 import QuestionRenderer from "./components/QuestionRenderer";
 
 const TEST_BGM_START = 0;
+
 const CLEAR_BGM_START = 2.6;
+
 const GAMEOVER_BGM_START = 7.6;
 
 function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] =
+    useState(0);
+
   const [input, setInput] = useState("");
+
   const [result, setResult] = useState("");
+
   const [score, setScore] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
-  const [isStarted, setIsStarted] = useState(false);
+
+  const [isFinished, setIsFinished] =
+    useState(false);
+
+  const [isStarted, setIsStarted] =
+    useState(false);
 
   const bgmRef = useRef(null);
+
   const clearBgmRef = useRef(null);
+
   const gameoverBgmRef = useRef(null);
 
   const currentQuestion = questions[currentIndex];
+
   const isAnswered = result !== "";
+
   const isCorrect = result === "正解！";
 
   const scorePoint = Math.round(
@@ -38,46 +53,15 @@ function App() {
 
     if (bgmRef.current) {
       bgmRef.current.volume = 0.35;
-      bgmRef.current.currentTime = TEST_BGM_START;
 
-      bgmRef.current.play().catch(() => {});
+      bgmRef.current.currentTime =
+        TEST_BGM_START;
+
+      bgmRef.current
+        .play()
+        .catch(() => {});
     }
   }, [isStarted, isFinished]);
-
-  useEffect(() => {
-    if (!isFinished) return;
-
-    if (bgmRef.current) {
-      bgmRef.current.pause();
-      bgmRef.current.currentTime = 0;
-    }
-
-    if (clearBgmRef.current) {
-      clearBgmRef.current.pause();
-      clearBgmRef.current.currentTime = 0;
-    }
-
-    if (gameoverBgmRef.current) {
-      gameoverBgmRef.current.pause();
-      gameoverBgmRef.current.currentTime = 0;
-    }
-
-    if (scorePoint >= 60) {
-      if (clearBgmRef.current) {
-        clearBgmRef.current.volume = 0.4;
-        clearBgmRef.current.currentTime = CLEAR_BGM_START;
-
-        clearBgmRef.current.play().catch(() => {});
-      }
-    } else {
-      if (gameoverBgmRef.current) {
-        gameoverBgmRef.current.volume = 0.45;
-        gameoverBgmRef.current.currentTime = GAMEOVER_BGM_START;
-
-        gameoverBgmRef.current.play().catch(() => {});
-      }
-    }
-  }, [isFinished, scorePoint]);
 
   const startTest = () => {
     setIsStarted(true);
@@ -88,9 +72,56 @@ function App() {
 
     if (userAnswer === currentQuestion.answer) {
       setResult("正解！");
+
       setScore((prev) => prev + 1);
     } else {
       setResult("不正解…");
+    }
+  };
+
+  const playResultBgm = (
+    finalScore
+  ) => {
+    if (bgmRef.current) {
+      bgmRef.current.pause();
+
+      bgmRef.current.currentTime = 0;
+    }
+
+    if (clearBgmRef.current) {
+      clearBgmRef.current.pause();
+
+      clearBgmRef.current.currentTime = 0;
+    }
+
+    if (gameoverBgmRef.current) {
+      gameoverBgmRef.current.pause();
+
+      gameoverBgmRef.current.currentTime = 0;
+    }
+
+    if (finalScore >= 60) {
+      if (clearBgmRef.current) {
+        clearBgmRef.current.volume = 0.4;
+
+        clearBgmRef.current.currentTime =
+          CLEAR_BGM_START;
+
+        clearBgmRef.current
+          .play()
+          .catch(() => {});
+      }
+    } else {
+      if (gameoverBgmRef.current) {
+        gameoverBgmRef.current.volume = 0.45;
+
+        gameoverBgmRef.current.currentTime =
+          GAMEOVER_BGM_START;
+
+        gameoverBgmRef.current
+          .play()
+          .catch(() => {});
+      }
     }
   };
 
@@ -98,35 +129,48 @@ function App() {
     const nextIndex = currentIndex + 1;
 
     if (nextIndex >= questions.length) {
+      playResultBgm(scorePoint);
+
       setIsFinished(true);
+
       return;
     }
 
     setCurrentIndex(nextIndex);
+
     setInput("");
+
     setResult("");
   };
 
   const resetGame = () => {
     setCurrentIndex(0);
+
     setInput("");
+
     setResult("");
+
     setScore(0);
+
     setIsFinished(false);
+
     setIsStarted(false);
 
     if (bgmRef.current) {
       bgmRef.current.pause();
+
       bgmRef.current.currentTime = 0;
     }
 
     if (clearBgmRef.current) {
       clearBgmRef.current.pause();
+
       clearBgmRef.current.currentTime = 0;
     }
 
     if (gameoverBgmRef.current) {
       gameoverBgmRef.current.pause();
+
       gameoverBgmRef.current.currentTime = 0;
     }
   };
@@ -266,7 +310,8 @@ function App() {
                   : checkAnswer
               }
               disabled={
-                !isAnswered && input === ""
+                !isAnswered &&
+                input === ""
               }
               className={
                 isAnswered
