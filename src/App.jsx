@@ -279,7 +279,7 @@ function App() {
 
             <div className="answer-row">
               <span>
-                {currentQuestion.answerLabel} =
+                {currentQuestion.answerLabel}：
               </span>
 
               <input
