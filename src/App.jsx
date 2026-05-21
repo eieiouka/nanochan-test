@@ -5,9 +5,11 @@ import {
 } from "react";
 
 import "./App.css";
+
 import { questions } from "./data/questions";
 
 import Header from "./components/Header";
+
 import QuestionRenderer from "./components/QuestionRenderer";
 
 const TEST_BGM_START = 0;
@@ -21,6 +23,8 @@ function App() {
     useState(0);
 
   const [input, setInput] = useState("");
+
+  const [inputs, setInputs] = useState([]);
 
   const [result, setResult] = useState("");
 
@@ -68,9 +72,59 @@ function App() {
   };
 
   const checkAnswer = () => {
+    if (
+      currentQuestion.layout ===
+      "formula-inputs"
+    ) {
+      const userAnswers = inputs.map(
+        (value) => Number(value)
+      );
+
+      const correctAnswers =
+        currentQuestion.answers;
+
+      const shouldIgnoreOrder =
+        currentQuestion.answerOrder !==
+        "exact";
+
+      const normalizedUserAnswers =
+        shouldIgnoreOrder
+          ? [...userAnswers].sort(
+              (a, b) => a - b
+            )
+          : userAnswers;
+
+      const normalizedCorrectAnswers =
+        shouldIgnoreOrder
+          ? [...correctAnswers].sort(
+              (a, b) => a - b
+            )
+          : correctAnswers;
+
+      if (
+        JSON.stringify(
+          normalizedUserAnswers
+        ) ===
+        JSON.stringify(
+          normalizedCorrectAnswers
+        )
+      ) {
+        setResult("正解！");
+
+        setScore((prev) => prev + 1);
+      } else {
+        setResult("不正解…");
+      }
+
+      return;
+    }
+
     const userAnswer = Number(input);
 
-    if (userAnswer === currentQuestion.answer) {
+    if (
+      userAnswer ===
+      currentQuestion.answer
+    ) {
       setResult("正解！");
 
       setScore((prev) => prev + 1);
@@ -140,6 +194,8 @@ function App() {
 
     setInput("");
 
+    setInputs([]);
+
     setResult("");
   };
 
@@ -147,6 +203,8 @@ function App() {
     setCurrentIndex(0);
 
     setInput("");
+
+    setInputs([]);
 
     setResult("");
 
@@ -190,6 +248,18 @@ function App() {
 
     return "あなた、赤点じゃない…。";
   };
+
+  const isButtonDisabled =
+    !isAnswered &&
+    (currentQuestion.layout ===
+    "formula-inputs"
+      ? inputs.length !==
+          currentQuestion.answers
+            .length ||
+        inputs.some(
+          (value) => value === ""
+        )
+      : input === "");
 
   return (
     <main className="app">
@@ -277,31 +347,100 @@ function App() {
               question={currentQuestion}
             />
 
-            <div className="answer-row">
-              <span>
-                {currentQuestion.answerLabel}：
-              </span>
+            {currentQuestion.layout ===
+            "formula-inputs" ? (
+              <div className="formula-row">
+                {currentQuestion.formula.map(
+                  (part, index) => {
+                    if (
+                      part !== "input"
+                    ) {
+                      return (
+                        <span key={index}>
+                          {part}
+                        </span>
+                      );
+                    }
 
-              <input
-                value={input}
-                onChange={(e) =>
-                  setInput(
-                    e.target.value.replace(
-                      /[^0-9]/g,
-                      ""
+                    const inputIndex =
+                      currentQuestion.formula
+                        .slice(0, index)
+                        .filter(
+                          (item) =>
+                            item ===
+                            "input"
+                        ).length;
+
+                    return (
+                      <input
+                        key={index}
+                        className="formula-input"
+                        value={
+                          inputs[
+                            inputIndex
+                          ] ?? ""
+                        }
+                        onChange={(
+                          e
+                        ) => {
+                          const next = [
+                            ...inputs,
+                          ];
+
+                          next[
+                            inputIndex
+                          ] =
+                            e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+
+                          setInputs(
+                            next
+                          );
+                        }}
+                        type="text"
+                        inputMode="numeric"
+                        disabled={
+                          isAnswered
+                        }
+                      />
+                    );
+                  }
+                )}
+              </div>
+            ) : (
+              <div className="answer-row">
+                <span>
+                  {
+                    currentQuestion.answerLabel
+                  }
+                  ：
+                </span>
+
+                <input
+                  value={input}
+                  onChange={(e) =>
+                    setInput(
+                      e.target.value.replace(
+                        /[^0-9]/g,
+                        ""
+                      )
                     )
-                  )
-                }
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                disabled={isAnswered}
-              />
+                  }
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  disabled={isAnswered}
+                />
 
-              <span>
-                {currentQuestion.answerUnit}
-              </span>
-            </div>
+                <span>
+                  {
+                    currentQuestion.answerUnit
+                  }
+                </span>
+              </div>
+            )}
 
             <button
               onClick={
@@ -310,8 +449,7 @@ function App() {
                   : checkAnswer
               }
               disabled={
-                !isAnswered &&
-                input === ""
+                isButtonDisabled
               }
               className={
                 isAnswered
