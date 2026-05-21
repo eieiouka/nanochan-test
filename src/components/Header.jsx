@@ -9,7 +9,9 @@ function Header() {
 
       <div className="title-area">
         <h1 className="main-title">
-          ナノちゃんの小学校テスト
+          ナノちゃんの
+          <br className="sp-only" />
+          小学校テスト
         </h1>
 
         <p className="sub-title">

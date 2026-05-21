@@ -10,11 +10,18 @@ function App() {
   const [result, setResult] = useState("");
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [isStarted, setIsStarted] = useState(false);
 
   const currentQuestion = questions[currentIndex];
 
   const isAnswered = result !== "";
   const isCorrect = result === "正解！";
+
+  const scorePoint = Math.round((score / questions.length) * 100);
+
+  const startTest = () => {
+    setIsStarted(true);
+  };
 
   const checkAnswer = () => {
     const userAnswer = Number(input);
@@ -46,7 +53,32 @@ function App() {
     setResult("");
     setScore(0);
     setIsFinished(false);
+    setIsStarted(false);
   };
+
+  if (!isStarted) {
+    return (
+      <main className="app">
+        <section className="test-card start-card">
+          <Header />
+
+          <img
+            src="/images/nanoka-akaten.jpg"
+            alt="赤点のナノカちゃん"
+            className="start-image"
+          />
+
+          <p className="start-message">
+            ナノカちゃんの代わりに、満点を取ってあげよう！
+          </p>
+
+          <button onClick={startTest}>
+            テストを始める
+          </button>
+        </section>
+      </main>
+    );
+  }
 
   if (isFinished) {
     return (
@@ -54,13 +86,21 @@ function App() {
         <section className="test-card">
           <Header />
 
-          <h2 className="result-title">結果発表</h2>
+          <h2 className="result-title">
+            結果発表
+          </h2>
 
           <p className="score">
             {questions.length}問中 {score}問 正解
           </p>
 
-          <button onClick={resetGame}>もう一度</button>
+          <p className="score-point">
+            100点満点中 {scorePoint}点
+          </p>
+
+          <button onClick={resetGame}>
+            もう一度
+          </button>
         </section>
       </main>
     );
@@ -79,29 +119,18 @@ function App() {
           <QuestionRenderer question={currentQuestion} />
 
           <div className="answer-row">
-            <span>{currentQuestion.answerLabel} = </span>
+            <span>{currentQuestion.answerLabel} =</span>
 
-            <div className="input-wrap">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                type="number"
-                inputMode="numeric"
-                disabled={isAnswered}
-              />
-
-              {isAnswered && (
-                <span
-                  className={
-                    isCorrect
-                      ? "answer-mark correct-mark"
-                      : "answer-mark wrong-mark"
-                  }
-                >
-                  {isCorrect ? "〇" : "✓"}
-                </span>
-              )}
-            </div>
+            <input
+              value={input}
+              onChange={(e) =>
+                setInput(e.target.value.replace(/[^0-9]/g, ""))
+              }
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              disabled={isAnswered}
+            />
 
             <span>{currentQuestion.answerUnit}</span>
           </div>
@@ -109,8 +138,17 @@ function App() {
           <button
             onClick={isAnswered ? goNext : checkAnswer}
             disabled={!isAnswered && input === ""}
+            className={
+              isAnswered
+                ? isCorrect
+                  ? "answer-button correct-button"
+                  : "answer-button wrong-button"
+                : ""
+            }
           >
-            {isAnswered ? "次へ" : "答え合わせ"}
+            {isAnswered
+              ? `${result}（次に進む）`
+              : "答え合わせ"}
           </button>
         </div>
       </section>
