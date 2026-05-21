@@ -1,23 +1,56 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
 import "./App.css";
+
 import { questions } from "./data/questions";
+
 import Header from "./components/Header";
+
 import QuestionRenderer from "./components/QuestionRenderer";
 
 function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] =
+    useState(0);
+
   const [input, setInput] = useState("");
+
   const [result, setResult] = useState("");
+
   const [score, setScore] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
-  const [isStarted, setIsStarted] = useState(false);
+
+  const [isFinished, setIsFinished] =
+    useState(false);
+
+  const [isStarted, setIsStarted] =
+    useState(false);
+
+  const bgmRef = useRef(null);
 
   const currentQuestion = questions[currentIndex];
 
   const isAnswered = result !== "";
+
   const isCorrect = result === "正解！";
 
-  const scorePoint = Math.round((score / questions.length) * 100);
+  const scorePoint = Math.round(
+    (score / questions.length) * 100
+  );
+
+  useEffect(() => {
+    if (!isStarted) return;
+
+    if (bgmRef.current) {
+      bgmRef.current.volume = 0.35;
+
+      bgmRef.current
+        .play()
+        .catch(() => {});
+    }
+  }, [isStarted]);
 
   const startTest = () => {
     setIsStarted(true);
@@ -43,22 +76,56 @@ function App() {
     }
 
     setCurrentIndex(nextIndex);
+
     setInput("");
+
     setResult("");
   };
 
   const resetGame = () => {
     setCurrentIndex(0);
+
     setInput("");
+
     setResult("");
+
     setScore(0);
+
     setIsFinished(false);
+
     setIsStarted(false);
+
+    if (bgmRef.current) {
+      bgmRef.current.pause();
+      bgmRef.current.currentTime = 0;
+    }
+  };
+
+  const getComment = () => {
+    if (scorePoint === 100) {
+      return "なかなかやるわね。満点よ。";
+    }
+
+    if (scorePoint >= 80) {
+      return "あなたも赤点じゃないじゃない。";
+    }
+
+    if (scorePoint >= 60) {
+      return "ギリギリって感じね…。";
+    }
+
+    return "あなた、赤点じゃない…。";
   };
 
   if (!isStarted) {
     return (
       <main className="app">
+        <audio
+          ref={bgmRef}
+          src="/sounds/bgm_test.mp3"
+          loop
+        />
+
         <section className="test-card start-card">
           <Header />
 
@@ -69,7 +136,8 @@ function App() {
           />
 
           <p className="start-message">
-            ナノカちゃんの代わりに、満点を取ってあげよう！
+            ナノカちゃんの代わりに、
+            満点を取ってあげよう！
           </p>
 
           <button onClick={startTest}>
@@ -83,6 +151,12 @@ function App() {
   if (isFinished) {
     return (
       <main className="app">
+        <audio
+          ref={bgmRef}
+          src="/sounds/bgm_test.mp3"
+          loop
+        />
+
         <section className="test-card">
           <Header />
 
@@ -90,13 +164,29 @@ function App() {
             結果発表
           </h2>
 
-          <p className="score">
-            {questions.length}問中 {score}問 正解
+          <p
+            className={
+              scorePoint <= 59
+                ? "score-point bad-score"
+                : "score-point good-score"
+            }
+          >
+            <span>{scorePoint}点</span>
+
+            <small>
+              （{score}/{questions.length}問）
+            </small>
           </p>
 
-          <p className="score-point">
-            100点満点中 {scorePoint}点
-          </p>
+          <div className="result-comment">
+            <img
+              src="/images/nanoka-icon.png"
+              alt="黒部ナノカ"
+              className="comment-icon"
+            />
+
+            <p>{getComment()}</p>
+          </div>
 
           <button onClick={resetGame}>
             もう一度
@@ -108,6 +198,12 @@ function App() {
 
   return (
     <main className="app">
+      <audio
+        ref={bgmRef}
+        src="/sounds/bgm_test.mp3"
+        loop
+      />
+
       <section className="test-card">
         <Header />
 
@@ -116,15 +212,24 @@ function App() {
             ◆ {currentQuestion.title} ◆
           </p>
 
-          <QuestionRenderer question={currentQuestion} />
+          <QuestionRenderer
+            question={currentQuestion}
+          />
 
           <div className="answer-row">
-            <span>{currentQuestion.answerLabel} =</span>
+            <span>
+              {currentQuestion.answerLabel} =
+            </span>
 
             <input
               value={input}
               onChange={(e) =>
-                setInput(e.target.value.replace(/[^0-9]/g, ""))
+                setInput(
+                  e.target.value.replace(
+                    /[^0-9]/g,
+                    ""
+                  )
+                )
               }
               type="text"
               inputMode="numeric"
@@ -132,12 +237,20 @@ function App() {
               disabled={isAnswered}
             />
 
-            <span>{currentQuestion.answerUnit}</span>
+            <span>
+              {currentQuestion.answerUnit}
+            </span>
           </div>
 
           <button
-            onClick={isAnswered ? goNext : checkAnswer}
-            disabled={!isAnswered && input === ""}
+            onClick={
+              isAnswered
+                ? goNext
+                : checkAnswer
+            }
+            disabled={
+              !isAnswered && input === ""
+            }
             className={
               isAnswered
                 ? isCorrect
