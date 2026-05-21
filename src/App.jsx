@@ -1,30 +1,20 @@
 import { useState } from "react";
 import "./App.css";
-
-const questions = [
-  {
-    id: 1,
-    title: "第1問",
-    story:
-      "エマはサイコロを使って、正方形を作ろうとしています。",
-    question:
-      "サイコロが16個あります。1人で正方形を作るなら、一辺は何個になりますか？",
-    answer: 4,
-    diceCount: 16,
-    gridSize: 4,
-  },
-];
+import { questions } from "./data/questions";
+import Header from "./components/Header";
+import QuestionRenderer from "./components/QuestionRenderer";
 
 function App() {
-  const [currentIndex, setCurrentIndex] =
-    useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
   const [score, setScore] = useState(0);
-  const [isFinished, setIsFinished] =
-    useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   const currentQuestion = questions[currentIndex];
+
+  const isAnswered = result !== "";
+  const isCorrect = result === "正解！";
 
   const checkAnswer = () => {
     const userAnswer = Number(input);
@@ -64,17 +54,13 @@ function App() {
         <section className="test-card">
           <Header />
 
-          <h2 className="result-title">
-            結果発表
-          </h2>
+          <h2 className="result-title">結果発表</h2>
 
           <p className="score">
             {questions.length}問中 {score}問 正解
           </p>
 
-          <button onClick={resetGame}>
-            もう一度
-          </button>
+          <button onClick={resetGame}>もう一度</button>
         </section>
       </main>
     );
@@ -90,97 +76,45 @@ function App() {
             ◆ {currentQuestion.title} ◆
           </p>
 
-          <p className="story">
-            {currentQuestion.story}
-          </p>
-
-          <div
-            className="dice-grid"
-            style={{
-              gridTemplateColumns: `repeat(${currentQuestion.gridSize}, 34px)`,
-            }}
-          >
-            {Array.from({
-              length: currentQuestion.diceCount,
-            }).map((_, index) => (
-              <span
-                key={index}
-                className="dice"
-              />
-            ))}
-          </div>
-
-          <p className="question">
-            {currentQuestion.question}
-          </p>
+          <QuestionRenderer question={currentQuestion} />
 
           <div className="answer-row">
-            <span>一辺 = </span>
+            <span>{currentQuestion.answerLabel} = </span>
 
-            <input
-              value={input}
-              onChange={(e) =>
-                setInput(e.target.value)
-              }
-              type="number"
-              inputMode="numeric"
-              placeholder=""
-            />
+            <div className="input-wrap">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                type="number"
+                inputMode="numeric"
+                disabled={isAnswered}
+              />
 
-            <span>個</span>
+              {isAnswered && (
+                <span
+                  className={
+                    isCorrect
+                      ? "answer-mark correct-mark"
+                      : "answer-mark wrong-mark"
+                  }
+                >
+                  {isCorrect ? "〇" : "✓"}
+                </span>
+              )}
+            </div>
+
+            <span>{currentQuestion.answerUnit}</span>
           </div>
 
-          {!result && (
-            <button
-              onClick={checkAnswer}
-              disabled={input === ""}
-            >
-              答え合わせ
-            </button>
-          )}
-
-          {result && (
-            <div className="result-box">
-              <p
-                className={
-                  result === "正解！"
-                    ? "correct"
-                    : "wrong"
-                }
-              >
-                {result}
-              </p>
-
-              <button onClick={goNext}>
-                次へ
-              </button>
-            </div>
-          )}
+          <button
+            onClick={isAnswered ? goNext : checkAnswer}
+            disabled={!isAnswered && input === ""}
+          >
+            {isAnswered ? "次へ" : "答え合わせ"}
+          </button>
         </div>
       </section>
     </main>
-  );
-}
-
-function Header() {
-  return (
-    <header className="header">
-      <img
-        src="/images/ema-icon.png"
-        alt="桜羽エマ"
-        className="ema-icon"
-      />
-
-      <div className="title-area">
-        <h1 className="main-title">
-          小学校のテスト
-        </h1>
-
-        <p className="sub-title">
-          赤点を取っちゃダメだよ！
-        </p>
-      </div>
-    </header>
   );
 }
 
