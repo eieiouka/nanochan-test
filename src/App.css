@@ -357,17 +357,18 @@ button:disabled {
 
 @media (max-width: 700px) {
   .test-card {
-    padding: 22px;
+    padding: 20px;
   }
 
   .header {
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
+    padding-bottom: 18px;
   }
 
   .ema-icon {
-    width: 86px;
-    height: 86px;
+    width: 92px;
+    height: 92px;
   }
 
   .sp-only {
@@ -375,22 +376,42 @@ button:disabled {
   }
 
   .main-title {
-    font-size: 34px;
-    letter-spacing: 6px;
-    line-height: 1.45;
+    font-size: 40px;
+
+    letter-spacing: 4px;
+
+    line-height: 1.22;
   }
 
   .sub-title {
-    font-size: 18px;
+    margin-top: 14px;
+
+    font-size: 22px;
+
+    line-height: 1.35;
+  }
+
+  .question-panel {
+    padding-top: 18px;
+  }
+
+  .label {
+    margin-bottom: 16px;
+
+    font-size: 26px;
   }
 
   .story,
   .question {
-    font-size: 18px;
+    font-size: 24px;
+
+    line-height: 1.55;
   }
 
   .dice-grid {
-    gap: 8px;
+    gap: 7px;
+
+    margin: 18px auto 22px;
   }
 
   .dice {
@@ -400,33 +421,79 @@ button:disabled {
   }
 
   .answer-row {
-    font-size: 22px;
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    font-size: 26px;
   }
 
   input {
-    width: 110px;
-    height: 52px;
-    font-size: 28px;
+    width: 112px;
+    height: 54px;
+
+    font-size: 32px;
+  }
+
+  button {
+    padding: 12px 26px;
+
+    font-size: 24px;
+  }
+
+  .start-image {
+    margin-top: 22px;
   }
 
   .start-message {
-    font-size: 18px;
+    margin: 18px 0 24px;
+
+    font-size: 24px;
+
+    line-height: 1.6;
+  }
+
+  .result-title {
+    margin-top: 34px;
+    margin-bottom: 26px;
+
+    font-size: 42px;
+  }
+
+  .score-point {
+    margin: 18px 0 34px;
   }
 
   .score-point span {
-    font-size: 38px;
+    font-size: 56px;
   }
 
   .score-point small {
     display: block;
-    margin-top: 6px;
+
+    margin-top: 2px;
+
     margin-left: 0;
-    font-size: 18px;
+
+    font-size: 22px;
   }
 
   .result-comment {
     flex-direction: column;
-    font-size: 18px;
+
+    gap: 12px;
+
+    margin: 0 auto 26px;
+
+    font-size: 24px;
+
+    line-height: 1.5;
+
     text-align: center;
+  }
+
+  .comment-icon {
+    width: 86px;
+    height: 86px;
   }
 }
