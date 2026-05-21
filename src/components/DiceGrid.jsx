@@ -3,7 +3,7 @@ function DiceGrid({ diceCount, gridSize }) {
     <div
       className="dice-grid"
       style={{
-        gridTemplateColumns: `repeat(${gridSize}, 34px)`,
+        gridTemplateColumns: `repeat(${gridSize}, 26px)`,
       }}
     >
       {Array.from({ length: diceCount }).map(

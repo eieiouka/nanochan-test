@@ -128,14 +128,14 @@ body {
 .dice-grid {
   display: grid;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
   margin: 26px auto 30px;
 }
 
 .dice {
   position: relative;
-  width: 34px;
-  height: 34px;
+  width: 26px;
+  height: 26px;
   border-radius: 9px;
   background:
     linear-gradient(
@@ -152,13 +152,20 @@ body {
 
 .dice::before {
   content: "";
+
   position: absolute;
+
   inset: 50%;
+
   width: 6px;
+
   height: 6px;
+
   transform: translate(-50%, -50%);
+
   border-radius: 50%;
-  background: #111;
+
+  background: #ff3b3b;
 }
 
 .question {
@@ -496,4 +503,9 @@ button:disabled {
     width: 86px;
     height: 86px;
   }
+}
+
+.story,
+.question {
+  white-space: pre-line;
 }

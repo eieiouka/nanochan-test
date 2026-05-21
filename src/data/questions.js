@@ -4,9 +4,9 @@ export const questions = [
     title: "第1問",
     layout: "dice-square",
     story:
-      "エマはサイコロを使って、正方形を作ろうとしています。",
+      "桜羽エマはサイコロを使って、正方形を作ろうとしています。",
     question:
-      "サイコロが25個あります。1人で正方形を作るなら、一辺は何個になりますか？",
+      "サイコロが25個あります。一辺のサイコロはいくつ？",
     answer: 5,
     diceCount: 16,
     gridSize: 4,
