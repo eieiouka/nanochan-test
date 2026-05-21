@@ -463,9 +463,12 @@ button:disabled {
 
 .formula-row {
   display: flex;
+
   justify-content: center;
+
   align-items: center;
-  gap: 10px;
+
+  gap: 22px;
 
   margin: 26px 0 24px;
 
@@ -474,20 +477,56 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+.formula-group {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  white-space: nowrap;
+}
+
 .formula-input {
   width: 72px;
+
   height: 56px;
 }
 
 @media (max-width: 700px) {
   .formula-row {
-    gap: 8px;
+    gap: 12px;
+
     margin: 20px 0 20px;
-    font-size: 30px;
+
+    font-size: 28px;
   }
 
   .formula-input {
     width: 68px;
+
     height: 54px;
   }
+}
+
+.formula-row {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 18px;
+
+  flex-wrap: wrap;
+}
+
+.formula-group {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  white-space: nowrap;
 }

@@ -351,45 +351,27 @@ function App() {
             "formula-inputs" ? (
               <div className="formula-row">
                 {currentQuestion.formula.map(
-                  (part, index) => {
-                    if (
-                      part !== "input"
-                    ) {
-                      return (
-                        <span key={index}>
-                          {part}
-                        </span>
-                      );
-                    }
+                  (item, index) => (
+                    <div
+                      className="formula-group"
+                      key={index}
+                    >
+                      <span>
+                        {item.label}
+                      </span>
 
-                    const inputIndex =
-                      currentQuestion.formula
-                        .slice(0, index)
-                        .filter(
-                          (item) =>
-                            item ===
-                            "input"
-                        ).length;
-
-                    return (
                       <input
-                        key={index}
                         className="formula-input"
                         value={
-                          inputs[
-                            inputIndex
-                          ] ?? ""
+                          inputs[index] ??
+                          ""
                         }
-                        onChange={(
-                          e
-                        ) => {
+                        onChange={(e) => {
                           const next = [
                             ...inputs,
                           ];
 
-                          next[
-                            inputIndex
-                          ] =
+                          next[index] =
                             e.target.value.replace(
                               /[^0-9]/g,
                               ""
@@ -405,8 +387,12 @@ function App() {
                           isAnswered
                         }
                       />
-                    );
-                  }
+
+                      <span>
+                        {item.unit}
+                      </span>
+                    </div>
+                  )
                 )}
               </div>
             ) : (
