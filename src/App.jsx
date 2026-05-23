@@ -119,7 +119,10 @@ function App() {
       return;
     }
 
-    const userAnswer = Number(input);
+    const userAnswer =
+      currentQuestion.layout === "select"
+        ? input
+        : Number(input);
 
     if (
       userAnswer ===
@@ -394,6 +397,34 @@ function App() {
                     </div>
                   )
                 )}
+              </div>
+            ) : currentQuestion.layout ===
+              "select" ? (
+              <div className="select-row">
+                <select
+                  value={input}
+                  onChange={(e) =>
+                    setInput(
+                      e.target.value
+                    )
+                  }
+                  disabled={isAnswered}
+                >
+                  <option value="">
+                    選んでね
+                  </option>
+
+                  {currentQuestion.choices.map(
+                    (choice) => (
+                      <option
+                        key={choice}
+                        value={choice}
+                      >
+                        {choice}
+                      </option>
+                    )
+                  )}
+                </select>
               </div>
             ) : (
               <div className="answer-row">
