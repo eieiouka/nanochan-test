@@ -7,10 +7,10 @@ export const questions = [
     layout: "single-input",
 
     story:
-      "エマはサイコロを使って、正方形を作ろうとしています。",
+      "エマは正方形の積み木を使って、正方形を作ろうとしています。",
 
     question:
-      "（1）一辺のサイコロが7個のとき、サイコロは全部でいくつ？",
+      "（1）一辺の積み木が7個のとき、積み木は全部でいくつ？",
 
     answer: 49,
 
@@ -27,12 +27,12 @@ export const questions = [
     layout: "single-input",
 
     story:
-      "エマはサイコロを使って、正方形を作ろうとしています。",
+      "エマは正方形の積み木を使って、正方形を作ろうとしています。",
 
     question:
-      "（2）サイコロが169個あるとき、一辺のサイコロはいくつ？",
+      "（2）積み木が100個あるとき、一辺の積み木はいくつ？",
 
-    answer: 13,
+    answer: 10,
 
     answerLabel: "一辺",
 
@@ -47,10 +47,10 @@ export const questions = [
     layout: "formula-inputs",
 
     story:
-      "エマとハンナは、2人で正方形を作ろうとしています。",
+      "エマはハンナと協力して、2つの正方形を作ることにしました。",
 
     question:
-      "100個のサイコロを使うとき、それぞれ何個ずつ使う？（順不同）",
+      "積み木が41個のとき、それぞれの一辺は？（順不同）",
 
     formula: [
       {
@@ -64,7 +64,7 @@ export const questions = [
       },
     ],
 
-    answers: [6, 8],
+    answers: [4, 5],
 
     answerOrder: "any",
   },
