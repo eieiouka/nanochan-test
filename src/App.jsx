@@ -411,6 +411,7 @@ function App() {
                   <option
                     value=""
                     hidden
+                    disabled
                   ></option>
 
                   {currentQuestion.choices.map(
