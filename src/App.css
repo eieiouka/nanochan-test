@@ -346,7 +346,7 @@ button:disabled {
   }
 
   .main-title {
-    font-size: 25px;
+    font-size:40px;
 
     letter-spacing: 4px;
 
@@ -373,15 +373,15 @@ button:disabled {
 
   .story,
   .question {
-    font-size: 24px;
+    font-size: 20px;
 
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
   .answer-row {
     gap: 10px;
 
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 
     font-size: 26px;
   }
