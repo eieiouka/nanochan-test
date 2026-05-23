@@ -293,8 +293,7 @@ function App() {
           />
 
           <p className="start-message">
-            ナノカちゃんの代わりに、
-            満点を取ってあげよう！
+            ナノカちゃんの代わりに、満点を取ってあげよう！
           </p>
 
           <button onClick={startTest}>
