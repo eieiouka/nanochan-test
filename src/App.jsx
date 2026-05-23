@@ -404,15 +404,14 @@ function App() {
                 <select
                   value={input}
                   onChange={(e) =>
-                    setInput(
-                      e.target.value
-                    )
+                    setInput(e.target.value)
                   }
                   disabled={isAnswered}
                 >
-                  <option value="">
-                    選んでね
-                  </option>
+                  <option
+                    value=""
+                    hidden
+                  ></option>
 
                   {currentQuestion.choices.map(
                     (choice) => (

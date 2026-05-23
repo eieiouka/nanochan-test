@@ -452,11 +452,13 @@ button:disabled {
 }
 
 .select-row select {
-  width: 128px;
+  min-width: 128px;
+
+  width: min(340px, 90vw);
 
   height: 56px;
 
-  padding: 0;
+  padding: 0 16px;
 
   border-radius: 12px;
 
@@ -474,6 +476,8 @@ button:disabled {
     sans-serif;
 
   text-align: center;
+
+  text-align-last: center;
 
   outline: none;
 
