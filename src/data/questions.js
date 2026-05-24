@@ -1057,9 +1057,9 @@ export const questions = [
     },
 
     {
-        id: 49,
+        id: 50,
 
-        title: "第49問",
+        title: "第50問",
 
         layout: "select",
 
@@ -1077,9 +1077,9 @@ export const questions = [
     },
 
     {
-        id: 50,
+        id: 51,
 
-        title: "第50問",
+        title: "第51問",
 
         layout: "select",
 
@@ -1096,9 +1096,9 @@ export const questions = [
     },
 
     {
-        id: 51,
+        id: 52,
 
-        title: "第51問",
+        title: "第52問",
 
         layout: "select",
 
@@ -1111,6 +1111,33 @@ export const questions = [
             "割った",
         ],
 
-        answer: "平方数の和",
+        answer: "掛けた",
+    },
+
+    {
+        id: 53,
+
+        title: "第53問",
+
+        layout: "formula-inputs",
+
+        question:
+            "シェリー「これで、4で割ったあまりが1の素数を掛けた個数はすべて成立するって言えましたね！」\nハンナ「2=（1×1）+（1×1）ですから、2を掛けても問題ありませんわ！」\nエマ「ちょっと待って！4で割ってあまりが3の素数、たとえば7を2回掛けたらどうなるのかな？」\nヒロ「その場合も問題ない。7×7の巨大な積み木だと思えば良い。」\nシェリー「なら、これで証明完了ですね！正方形を2つ（以内）作れる積み木の個数は、素因数分解したときに、＿で割ったあまりが＿の素数が偶数回（0を含む）だけ出てくることです！」",
+ 
+            formula: [
+        {
+            label: "",
+            unit: "で割った",
+        },
+
+        {
+            label: "あまり",
+            unit: "",
+        },
+        ],
+
+        answers: [4, 3],
+
+        answerOrder: "exact",
     },
 ];
