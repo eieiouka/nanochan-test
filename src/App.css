@@ -659,10 +659,14 @@ button:disabled {
   }
 
   .select-row select {
-    width: min(340px, 92vw);
+    width: min(220px, 70vw);
 
-    height: 64px;
+    height: 54px;
 
     font-size: 32px;
+
+    background: #fff;
+
+    color: #111;
   }
 }
