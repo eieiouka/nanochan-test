@@ -659,7 +659,7 @@ button:disabled {
   }
 
   .select-row select {
-    width: min(220px, 70vw);
+    width: min(320px, 90vw);
 
     height: 54px;
 
