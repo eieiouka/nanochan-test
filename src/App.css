@@ -565,33 +565,25 @@ button:disabled {
   }
 
   .answer-row {
-    gap: 12px;
+    gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 
     font-size: 26px;
-
-    flex-direction: column;
   }
 
   input {
-    width: min(260px, 80vw);
+    width: 112px;
 
-    height: 60px;
+    height: 54px;
 
-    font-size: 34px;
+    font-size: 32px;
   }
 
   button {
     padding: 12px 26px;
 
     font-size: 24px;
-  }
-
-  .answer-button {
-    width: min(320px, 90vw);
-
-    min-height: 64px;
   }
 
   .start-image {
@@ -667,9 +659,9 @@ button:disabled {
   }
 
   .select-row select {
-    width: 112px;
+    width: min(340px, 92vw);
 
-    height: 54px;
+    height: 64px;
 
     font-size: 32px;
   }
